@@ -1,15 +1,20 @@
-package com.rohit.p2pconnection
+package com.rohit.p2pconnection.navigation
 
 
-
+import android.Manifest
 import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import android.bluetooth.BluetoothAdapter
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.annotation.RequiresPermission
+import com.rohit.p2pconnection.screens.DeviceListScreen
+import com.rohit.p2pconnection.screens.ReceiveFileScreen
 
-@RequiresPermission(android.Manifest.permission.BLUETOOTH_CONNECT)
+@RequiresApi(Build.VERSION_CODES.Q)
+@RequiresPermission(Manifest.permission.BLUETOOTH_CONNECT)
 @Composable
 fun NavigationScreen(bluetoothAdapter: BluetoothAdapter) {
     val navController = rememberNavController()
@@ -18,7 +23,7 @@ fun NavigationScreen(bluetoothAdapter: BluetoothAdapter) {
             DeviceListScreen(navController, bluetoothAdapter)
         }
         composable("receive") {
-            ReceiveFileScreen()
+            ReceiveFileScreen(navController)
         }
     }
 }
